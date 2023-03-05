@@ -1,14 +1,14 @@
 import MainPage from '../../pages/main-page/main-page';
 
 
-type AppScreenProps = {
-  rentalOffers: number;
+type AppProps = {
+  offersCount: number;
 };
 
-function App ({rentalOffers}: AppScreenProps): JSX.Element {
+function App ({offersCount}: AppProps): JSX.Element {
 
   return(
-    <MainPage rentalOffers={rentalOffers} />
+    <MainPage offersCount={offersCount} />
   );
 }
 export default App;

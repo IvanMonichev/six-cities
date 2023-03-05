@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-const rentalOffers = 100;
+const CARDS_COUNT = 7;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      rentalOffers={rentalOffers}
+      offersCount={CARDS_COUNT}
     />
   </React.StrictMode>,
 );
