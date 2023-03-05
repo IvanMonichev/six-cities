@@ -1,4 +1,5 @@
-import MainScreen from '../../pages/main-screen/main-screen';
+import MainPage from '../../pages/main-page/main-page';
+
 
 type AppScreenProps = {
   rentalOffers: number;
@@ -7,7 +8,7 @@ type AppScreenProps = {
 function App ({rentalOffers}: AppScreenProps): JSX.Element {
 
   return(
-    <MainScreen rentalOffers={rentalOffers} />
+    <MainPage rentalOffers={rentalOffers} />
   );
 }
 export default App;
