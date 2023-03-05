@@ -1,8 +1,9 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { AppRoute, MainModifier, PageModifier } from '../../constant';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
+  const { id } = useParams();
 
   let pageModifier = '';
   let mainModifier = '';
@@ -26,6 +27,10 @@ function Layout(): JSX.Element {
       isNotGrayHeader = true;
       isDisplayFooter = true;
       break;
+    case `${AppRoute.Offer}/${id || ''}`:
+      mainModifier = MainModifier.Property;
+      isDisplayNav = true;
+      isNotGrayHeader = true;
   }
 
   return (

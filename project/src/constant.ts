@@ -14,7 +14,8 @@ enum PageModifier {
 enum MainModifier {
   Index = 'index',
   Login = 'login',
-  Favorites = 'favorites'
+  Favorites = 'favorites',
+  Property = 'propery',
 }
 
 export {
