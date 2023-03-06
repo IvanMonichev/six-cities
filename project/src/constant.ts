@@ -18,8 +18,15 @@ enum MainModifier {
   Property = 'propery',
 }
 
+enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknow = 'UNKNOWN',
+}
+
 export {
   AppRoute,
   PageModifier,
-  MainModifier
+  MainModifier,
+  AuthorizationStatus
 };

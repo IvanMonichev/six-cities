@@ -1,7 +1,11 @@
+import { Helmet } from 'react-helmet';
 
 function OfferPage(): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>Property | 6 cities</title>
+      </Helmet>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">

@@ -31,6 +31,13 @@ function Layout(): JSX.Element {
       mainModifier = MainModifier.Property;
       isDisplayNav = true;
       isNotGrayHeader = true;
+      break;
+    default:
+      mainModifier = 'not-found';
+      pageModifier = 'not-found';
+      isDisplayNav = false;
+      isNotGrayHeader = true;
+      isDisplayFooter = true;
   }
 
   return (

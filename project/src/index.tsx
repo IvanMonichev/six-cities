@@ -1,4 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
@@ -10,8 +14,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      offersCount={CARDS_COUNT}
-    />
+    <App offersCount={CARDS_COUNT} />
   </React.StrictMode>,
 );
