@@ -24,9 +24,14 @@ enum AuthorizationStatus {
   Unknow = 'UNKNOWN',
 }
 
+const MAX_PERCENT_STARS_WIDTH = 100;
+const STARS_COUNT = 5;
+
 export {
   AppRoute,
   PageModifier,
   MainModifier,
-  AuthorizationStatus
+  AuthorizationStatus,
+  MAX_PERCENT_STARS_WIDTH,
+  STARS_COUNT
 };
