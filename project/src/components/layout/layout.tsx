@@ -3,10 +3,10 @@ import { AppRoute, MainModifier, PageModifier } from '../../constant';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
-  const { id } = useParams();
+  const { offerId } = useParams();
 
   let pageModifier = '';
-  let mainModifier = '';
+  let mainModifier: string;
   let isDisplayNav = false;
   let isDisplayFooter = false;
   let isNotGrayHeader = false;
@@ -27,7 +27,7 @@ function Layout(): JSX.Element {
       isNotGrayHeader = true;
       isDisplayFooter = true;
       break;
-    case `${AppRoute.Offer}/${id || ''}`:
+    case `${AppRoute.Offer}/${offerId || ''}`:
       mainModifier = MainModifier.Property;
       isDisplayNav = true;
       isNotGrayHeader = true;

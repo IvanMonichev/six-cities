@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../constant';
 import Layout from '../layout/layout';
 import AuthPage from '../../pages/auth-page/auth-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
-import OfferPage from '../../pages/offer-page/offer-page';
+import RoomPage from '../../pages/offer-page/room-page';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import Head from '../head/head';
@@ -47,9 +47,11 @@ function App ({ offers }: AppProps): JSX.Element {
             }
           />
           <Route
-            path={`${AppRoute.Offer}/:id`}
+            path={`${AppRoute.Offer}/:offerId`}
             element={
-              <OfferPage />
+              <RoomPage
+                offers={offers}
+              />
             }
           />
           <Route

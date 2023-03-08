@@ -1,7 +1,19 @@
 import { Helmet } from 'react-helmet';
 import Form from '../../components/form/form';
+import { Offer } from '../../types/offer';
+import { useParams } from 'react-router-dom';
+import { MAX_PERCENT_STARS_WIDTH, STARS_COUNT } from '../../constant';
+import { capitalizedString } from '../../util';
 
-function OfferPage(): JSX.Element {
+type OfferPageProps = {
+  offers: Offer[];
+}
+
+function RoomPage({ offers }: OfferPageProps): JSX.Element {
+  const { offerId } = useParams();
+  const offer = offers.find((element) => element.id === Number(offerId));
+  const { price, rating, title, isPremium, type } = offer as Offer;
+
   return (
     <>
       <Helmet>
@@ -32,12 +44,14 @@ function OfferPage(): JSX.Element {
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            <div className="property__mark">
-              <span>Premium</span>
-            </div>
+            {isPremium && (
+              <div className="property__mark">
+                <span>Premium</span>
+              </div>
+            )}
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                Beautiful &amp; luxurious studio at great location
+                {title}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
@@ -48,14 +62,14 @@ function OfferPage(): JSX.Element {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: '80%'}}></span>
+                <span style={{width: `${MAX_PERCENT_STARS_WIDTH * rating / STARS_COUNT}%`}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">4.8</span>
+              <span className="property__rating-value rating__value">{rating}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                Apartment
+                {capitalizedString(type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 3 Bedrooms
@@ -65,7 +79,7 @@ function OfferPage(): JSX.Element {
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;120</b>
+              <b className="property__price-value">&euro;{price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -279,4 +293,4 @@ function OfferPage(): JSX.Element {
   );
 }
 
-export default OfferPage;
+export default RoomPage;
