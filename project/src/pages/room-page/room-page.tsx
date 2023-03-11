@@ -3,7 +3,7 @@ import Form from '../../components/form/form';
 import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';
 import { MAX_PERCENT_STARS_WIDTH, STARS_COUNT } from '../../constant';
-import { capitalizedString } from '../../util';
+import { toUpperCaseFirstChar } from '../../util';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -12,7 +12,8 @@ type OfferPageProps = {
 function RoomPage({ offers }: OfferPageProps): JSX.Element {
   const { offerId } = useParams();
   const offer = offers.find((element) => element.id === Number(offerId));
-  const { price, rating, title, isPremium, type } = offer as Offer;
+
+  const { price, rating, title, isPremium, type, images } = offer as Offer;
 
   return (
     <>
@@ -22,24 +23,11 @@ function RoomPage({ offers }: OfferPageProps): JSX.Element {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/room.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/studio-01.jpg" alt="Photo studio" />
-            </div>
-            <div className="property__image-wrapper">
-              <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio" />
-            </div>
+            {images.slice(0, 6).map((image): JSX.Element => (
+              <div key={image} className="property__image-wrapper">
+                <img className="property__image" src={image} alt="Photo studio" />
+              </div>
+            ))}
           </div>
         </div>
         <div className="property__container container">
@@ -69,7 +57,7 @@ function RoomPage({ offers }: OfferPageProps): JSX.Element {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {capitalizedString(type)}
+                {toUpperCaseFirstChar(type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
                 3 Bedrooms

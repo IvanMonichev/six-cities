@@ -1,13 +1,36 @@
-export type Offer = {
+type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
+
+type City = {
+  name: string;
+  location: Location;
+}
+
+type Host = {
   id: number;
-  price: number;
-  rating: number;
-  title: string;
-  isPremium: boolean;
-  isFavorite: boolean;
+  name: string;
+  isPro: boolean;
+  avatarUrl: string;
+}
+
+export type Offer = {
+  city: City;
   previewImage: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
-  city: {
-    name: string;
-  };
+  images: string[];
+  title: string;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  type: string;
+  bedrooms: number;
+  maxAdults: number;
+  price: number;
+  goods: string[];
+  host: Host;
+  description: string;
+  location: Location;
+  id: number;
 }

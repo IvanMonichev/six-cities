@@ -1,4 +1,5 @@
 import CardList from '../../components/card-list/card-list';
+import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
 
 type MainScreenProps = {
@@ -68,7 +69,7 @@ function MainPage ({ offers }: MainScreenProps): JSX.Element {
             <CardList offers={offers} />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map />
           </div>
         </div>
       </div>

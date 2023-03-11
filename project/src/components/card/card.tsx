@@ -1,6 +1,7 @@
 import { Offer } from '../../types/offer';
 import { AppRoute, MAX_PERCENT_STARS_WIDTH, STARS_COUNT } from '../../constant';
 import { Link } from 'react-router-dom';
+import { toUpperCaseFirstChar } from '../../util';
 
 type CardProps = Offer & {
     onMouseMove: (id: number) => void;
@@ -34,7 +35,7 @@ function Card(props: CardProps): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{price}</b>
+            <b className="place-card__price-value">€ {price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={`place-card__bookmark-button button${isFavorite ? ' place-card__bookmark-button--active' : ''}`} type="button">
@@ -53,7 +54,7 @@ function Card(props: CardProps): JSX.Element {
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{toUpperCaseFirstChar(type)}</p>
       </div>
     </article>
   );
