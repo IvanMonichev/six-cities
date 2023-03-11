@@ -1,13 +1,5 @@
-type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
-type City = {
-  name: string;
-  location: Location;
-}
+import { City } from './city';
+import { Location } from './location';
 
 type Host = {
   id: number;

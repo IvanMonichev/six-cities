@@ -27,11 +27,17 @@ enum AuthorizationStatus {
 const MAX_PERCENT_STARS_WIDTH = 100;
 const STARS_COUNT = 5;
 
+enum UrlMarker {
+  Default = './img/pin.svg',
+  Current = './img/pin-active.svg',
+}
+
 export {
   AppRoute,
   PageModifier,
   MainModifier,
   AuthorizationStatus,
   MAX_PERCENT_STARS_WIDTH,
-  STARS_COUNT
+  STARS_COUNT,
+  UrlMarker
 };

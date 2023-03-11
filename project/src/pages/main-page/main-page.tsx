@@ -2,11 +2,11 @@ import CardList from '../../components/card-list/card-list';
 import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
 
-type MainScreenProps = {
+type MainPageProps = {
    offers: Offer[];
 }
 
-function MainPage ({ offers }: MainScreenProps): JSX.Element {
+function MainPage ({ offers }: MainPageProps): JSX.Element {
   return (
     <>
       <h1 className="visually-hidden">Cities</h1>
@@ -69,7 +69,7 @@ function MainPage ({ offers }: MainScreenProps): JSX.Element {
             <CardList offers={offers} />
           </section>
           <div className="cities__right-section">
-            <Map />
+            <Map offers={offers} />
           </div>
         </div>
       </div>
