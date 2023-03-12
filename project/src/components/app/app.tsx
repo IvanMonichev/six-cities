@@ -9,12 +9,14 @@ import PrivateRoute from '../private-route/private-route';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import Head from '../head/head';
 import { Offer } from '../../types/offer';
+import { City } from '../../types/city';
 
 type AppProps = {
   offers: Offer[];
+  city: City;
 };
 
-function App ({ offers }: AppProps): JSX.Element {
+function App({ offers, city }: AppProps): JSX.Element {
 
   return(
     <BrowserRouter>
@@ -29,6 +31,7 @@ function App ({ offers }: AppProps): JSX.Element {
             element={
               <MainPage
                 offers={offers}
+                city={city}
               />
             }
           />

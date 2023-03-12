@@ -4,28 +4,31 @@ import useMap from '../../hooks/useMap';
 import { Offer } from '../../types/offer';
 import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { City } from '../../types/city';
 
 type MapProps = {
   offers: Offer[];
+  city: City;
+  selectedPoint?: number | undefined;
 }
 
-function Map({ offers }: MapProps): JSX.Element {
-  const city = offers[0].city;
+const defaultCustomIcon = new Icon({
+  iconUrl: UrlMarker.Default,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: UrlMarker.Current,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+function Map({ offers, city, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-
-  const defaultCustomIcon = new Icon({
-    iconUrl: UrlMarker.Default,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  // const currentCustomIcon = new Icon({
-  //   iconUrl: UrlMarker.Current,
-  //   iconSize: [40, 40],
-  //   iconAnchor: [20, 40],
-  // });
+  // eslint-disable-next-line no-console
+  console.log(map);
 
   useEffect(() => {
     if (map) {
@@ -37,15 +40,21 @@ function Map({ offers }: MapProps): JSX.Element {
           lng: location.longitude
         });
 
-        marker.setIcon(defaultCustomIcon).addTo(map);
-
+        marker.setIcon(
+          selectedPoint !== undefined && offer.id === selectedPoint
+            ? currentCustomIcon
+            : defaultCustomIcon)
+          .addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, selectedPoint]);
 
   return (
-    <section style={{height: '500px'}} className="cities__map map" ref={mapRef}>
-    </section>
+    <section
+      style={{ height: '500px' }}
+      className="cities__map map"
+      ref={mapRef}
+    />
   );
 }
 

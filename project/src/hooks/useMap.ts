@@ -7,6 +7,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
+
       const instance = new Map(mapRef.current, {
         center: {
           lat: city.location.latitude,
@@ -27,6 +28,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
       setMap(instance);
     }
   }, [mapRef, map, city]);
+
   return map;
 }
 
