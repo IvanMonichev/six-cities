@@ -2,6 +2,7 @@ import CardList from '../../components/card-list/card-list';
 import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
+import { useState } from 'react';
 
 type MainPageProps = {
    offers: Offer[];
@@ -9,7 +10,11 @@ type MainPageProps = {
 }
 
 function MainPage ({ offers, city }: MainPageProps): JSX.Element {
-  const selectedPoint = 1;
+  const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
+
+  const handleCardHover = (id: number | null): void => {
+    setSelectedPoint(id);
+  };
 
   return (
     <>
@@ -70,7 +75,10 @@ function MainPage ({ offers, city }: MainPageProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <CardList offers={offers} />
+            <CardList
+              offers={offers}
+              onCardHover={handleCardHover}
+            />
           </section>
           <div className="cities__right-section">
             <Map offers={offers} city={city} selectedPoint={selectedPoint} />

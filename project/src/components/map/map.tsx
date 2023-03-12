@@ -3,13 +3,13 @@ import useMap from '../../hooks/useMap';
 import { Offer } from '../../types/offer';
 import { Icon, Marker } from 'leaflet';
 import { City } from '../../types/city';
-import { DEFAULT_MARKER } from '../../constant';
+import { CURRENT_MARKER, DEFAULT_MARKER } from '../../constant';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   offers: Offer[];
   city: City;
-  selectedPoint?: number | undefined;
+  selectedPoint?: number | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -18,11 +18,11 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-// const currentCustomIcon = new Icon({
-//   iconUrl: UrlMarker.Current,
-//   iconSize: [40, 40],
-//   iconAnchor: [20, 40],
-// });
+const currentCustomIcon = new Icon({
+  iconUrl: CURRENT_MARKER,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
 
 function Map({ offers, city, selectedPoint }: MapProps): JSX.Element {
   const mapRef = useRef(null);
@@ -39,7 +39,11 @@ function Map({ offers, city, selectedPoint }: MapProps): JSX.Element {
           lng: location.longitude,
         });
 
-        marker.setIcon(defaultCustomIcon).addTo(map);
+        marker.setIcon(
+          selectedPoint === offer.id
+            ? currentCustomIcon
+            : defaultCustomIcon
+        ).addTo(map);
         markers.push(marker);
       });
     }
@@ -52,7 +56,7 @@ function Map({ offers, city, selectedPoint }: MapProps): JSX.Element {
       }
     };
 
-  }, [map, offers]);
+  }, [map, offers, selectedPoint]);
 
   return (
     <section
