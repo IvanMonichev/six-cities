@@ -28,8 +28,8 @@ const MAX_PERCENT_STARS_WIDTH = 100;
 const STARS_COUNT = 5;
 
 enum UrlMarker {
-  Default = './img/pin.svg',
-  Current = './img/pin-active.svg',
+  Default = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
+  Current = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
 }
 
 export {
