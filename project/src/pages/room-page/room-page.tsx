@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Form from '../../components/form/form';
 import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';

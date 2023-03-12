@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../constant';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 function NotFoundPage(): JSX.Element {
   const navigate = useNavigate();
