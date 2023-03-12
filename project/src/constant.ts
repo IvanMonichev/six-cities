@@ -1,3 +1,5 @@
+import pin from './assets/images/pin.svg';
+import pinActive from './assets/images/pin-active.svg';
 
 enum AppRoute {
   Root = '/',
@@ -27,10 +29,9 @@ enum AuthorizationStatus {
 const MAX_PERCENT_STARS_WIDTH = 100;
 const STARS_COUNT = 5;
 
-enum UrlMarker {
-  Default = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  Current = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
-}
+const DEFAULT_MARKER = pin;
+const CURRENT_MARKER = pinActive;
+
 
 export {
   AppRoute,
@@ -39,5 +40,6 @@ export {
   AuthorizationStatus,
   MAX_PERCENT_STARS_WIDTH,
   STARS_COUNT,
-  UrlMarker
+  DEFAULT_MARKER,
+  CURRENT_MARKER
 };

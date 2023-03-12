@@ -1,11 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom/index';
+import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { offers, city } from './mock/offers';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+
+root.render(
   <React.StrictMode>
     <App offers={offers} city={city} />
   </React.StrictMode>,
-  document.getElementById('root') as HTMLElement,
 );
