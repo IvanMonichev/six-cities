@@ -10,13 +10,15 @@ import NotFound from '../../pages/not-found/not-found';
 import Head from '../head/head';
 import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
+import { Comment } from '../../types/comment';
 
 type AppProps = {
   offers: Offer[];
   city: City;
+  reviews: Comment[];
 };
 
-function App({ offers, city }: AppProps): JSX.Element {
+function App({ offers, city, reviews }: AppProps): JSX.Element {
 
   return(
     <BrowserRouter>
@@ -54,6 +56,7 @@ function App({ offers, city }: AppProps): JSX.Element {
             element={
               <Property
                 offers={offers}
+                reviews={reviews}
               />
             }
           />
