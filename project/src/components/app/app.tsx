@@ -56,6 +56,7 @@ function App({ offers, city, reviews }: AppProps): JSX.Element {
             element={
               <Property
                 offers={offers}
+                city={city}
                 reviews={reviews}
               />
             }

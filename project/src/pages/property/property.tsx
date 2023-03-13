@@ -3,14 +3,17 @@ import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';
 import { getStartsWidth, toUpperCaseFirstChar } from '../../util';
 import ReviewList from '../../components/review-list/review-list';
+import Map from '../../components/map/map';
 import { Comment } from '../../types/comment';
+import { City } from '../../types/city';
 
 type OfferPageProps = {
   offers: Offer[];
+  city: City;
   reviews: Comment[];
 }
 
-function Property({ offers, reviews }: OfferPageProps): JSX.Element {
+function Property({ offers, city, reviews }: OfferPageProps): JSX.Element {
   const { offerId } = useParams();
   const offer = offers.find((element) => element.id === Number(offerId));
 
@@ -135,7 +138,12 @@ function Property({ offers, reviews }: OfferPageProps): JSX.Element {
             <ReviewList reviews={reviews} />
           </div>
         </div>
-        <section className="property__map map"></section>
+        <Map
+          offers={offers}
+          city={city}
+          selectedPoint={Number(offerId)}
+          place='property'
+        />
       </section>
       <div className="container">
         <section className="near-places places">
