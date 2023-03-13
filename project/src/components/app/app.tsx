@@ -1,12 +1,12 @@
-import MainPage from '../../pages/main-page/main-page';
+import Main from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constant';
 import Layout from '../layout/layout';
-import AuthPage from '../../pages/auth-page/auth-page';
-import FavoritesPage from '../../pages/favorites-page/favorites-page';
-import RoomPage from '../../pages/room-page/room-page';
+import Login from '../../pages/login/login';
+import Favorites from '../../pages/favorites/favorites';
+import Property from '../../pages/property/property';
 import PrivateRoute from '../private-route/private-route';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import NotFound from '../../pages/not-found/not-found';
 import Head from '../head/head';
 import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
@@ -29,7 +29,7 @@ function App({ offers, city }: AppProps): JSX.Element {
           <Route
             index
             element={
-              <MainPage
+              <Main
                 offers={offers}
                 city={city}
               />
@@ -38,21 +38,21 @@ function App({ offers, city }: AppProps): JSX.Element {
           <Route
             path={AppRoute.Login}
             element={
-              <AuthPage />
+              <Login />
             }
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <FavoritesPage />
+                <Favorites />
               </PrivateRoute>
             }
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
             element={
-              <RoomPage
+              <Property
                 offers={offers}
               />
             }
@@ -60,7 +60,7 @@ function App({ offers, city }: AppProps): JSX.Element {
           <Route
             path="*"
             element={
-              <NotFoundPage/>
+              <NotFound/>
             }
           />
         </Route>

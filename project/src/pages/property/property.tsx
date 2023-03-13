@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Form from '../../components/form/form';
+import ReviewForm from '../../components/review-form/review-form';
 import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';
 import { MAX_PERCENT_STARS_WIDTH, STARS_COUNT } from '../../constant';
@@ -9,7 +9,7 @@ type OfferPageProps = {
   offers: Offer[];
 }
 
-function RoomPage({ offers }: OfferPageProps): JSX.Element {
+function Property({ offers }: OfferPageProps): JSX.Element {
   const { offerId } = useParams();
   const offer = offers.find((element) => element.id === Number(offerId));
 
@@ -160,7 +160,7 @@ function RoomPage({ offers }: OfferPageProps): JSX.Element {
                   </div>
                 </li>
               </ul>
-              <Form />
+              <ReviewForm />
             </section>
           </div>
         </div>
@@ -281,4 +281,4 @@ function RoomPage({ offers }: OfferPageProps): JSX.Element {
   );
 }
 
-export default RoomPage;
+export default Property;

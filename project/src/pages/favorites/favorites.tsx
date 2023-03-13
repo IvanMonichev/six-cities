@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-function FavoritesPage(): JSX.Element {
+function Favorites(): JSX.Element {
   return (
     <>
       <Helmet>
@@ -148,4 +148,4 @@ function FavoritesPage(): JSX.Element {
   );
 }
 
-export default FavoritesPage;
+export default Favorites;

@@ -1,7 +1,7 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 import { STARS_COUNT } from '../../constant';
 
-function Form(): JSX.Element {
+function ReviewForm(): JSX.Element {
   const [text, setText] = useState<string>('');
   const [rating, setRating] = useState<number | null>(null);
 
@@ -29,7 +29,7 @@ function Form(): JSX.Element {
               checked={STARS_COUNT - i === rating}
               onChange={handleInputChange}
             />
-            <label htmlFor={`${STARS_COUNT - i}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+            <label htmlFor={`${STARS_COUNT - i}-stars`} className="reviews__rating-label form__rating-label">
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
@@ -57,4 +57,4 @@ function Form(): JSX.Element {
   );
 }
 
-export default Form;
+export default ReviewForm;

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-function AuthPage(): JSX.Element {
+function Login(): JSX.Element {
   return (
     <>
       <Helmet>
@@ -35,4 +35,4 @@ function AuthPage(): JSX.Element {
   );
 }
 
-export default AuthPage;
+export default Login;

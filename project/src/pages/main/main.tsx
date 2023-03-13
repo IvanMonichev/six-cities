@@ -9,7 +9,7 @@ type MainPageProps = {
    city: City;
 }
 
-function MainPage ({ offers, city }: MainPageProps): JSX.Element {
+function Main ({ offers, city }: MainPageProps): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
   const handleCardHover = (id: number | null): void => {
@@ -89,4 +89,4 @@ function MainPage ({ offers, city }: MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export default Main;

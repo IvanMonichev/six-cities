@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../constant';
 import { Helmet } from 'react-helmet-async';
 
-function NotFoundPage(): JSX.Element {
+function NotFound(): JSX.Element {
   const navigate = useNavigate();
 
   return (
@@ -31,4 +31,4 @@ function NotFoundPage(): JSX.Element {
   );
 }
 
-export default NotFoundPage;
+export default NotFound;
