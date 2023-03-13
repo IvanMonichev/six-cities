@@ -4,9 +4,10 @@ import Card from '../card/card';
 type CardListProps = {
   offers: Offer[];
   onCardHover: (id: number | null) => void;
+  partClass: 'cities' | 'near-places';
 };
 
-function CardList({ offers, onCardHover }: CardListProps): JSX.Element {
+function CardList({ offers, onCardHover, partClass }: CardListProps): JSX.Element {
 
   const handleCardMouseMove = (id: number): void => {
     onCardHover(id);
@@ -17,13 +18,20 @@ function CardList({ offers, onCardHover }: CardListProps): JSX.Element {
   };
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div
+      className={
+        `${partClass === 'cities'
+          ? 'cities__places-list places__list tabs__content'
+          : 'near-places__list places__list'}`
+      }
+    >
       {offers.map((offer) => (
         <Card
           key={offer.id}
           {...offer}
           onMouseMove={handleCardMouseMove}
           onMouseLeave={handleCardMouseLeave}
+          partClass={partClass}
         />
       ))}
     </div>

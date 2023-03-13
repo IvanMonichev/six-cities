@@ -6,11 +6,13 @@ import { toUpperCaseFirstChar } from '../../util';
 type CardProps = Offer & {
     onMouseMove: (id: number) => void;
     onMouseLeave: () => void;
+    partClass: 'cities' | 'near-places';
 };
 
 function Card(props: CardProps): JSX.Element {
   const { id, price, rating, title, isPremium, isFavorite, previewImage, type } = props;
   const { onMouseMove, onMouseLeave } = props;
+  const { partClass } = props;
 
   const handleMouseMove = (): void => {
     onMouseMove(id);
@@ -18,7 +20,7 @@ function Card(props: CardProps): JSX.Element {
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`${partClass === 'cities' ? 'cities__place-card' : 'near-places__card' } place-card`}
       onMouseMove={handleMouseMove}
       onMouseLeave={onMouseLeave}
     >
@@ -27,7 +29,7 @@ function Card(props: CardProps): JSX.Element {
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${partClass}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>

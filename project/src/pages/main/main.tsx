@@ -78,6 +78,7 @@ function Main ({ offers, city }: MainPageProps): JSX.Element {
             <CardList
               offers={offers}
               onCardHover={handleCardHover}
+              partClass='cities'
             />
           </section>
           <div className="cities__right-section">
