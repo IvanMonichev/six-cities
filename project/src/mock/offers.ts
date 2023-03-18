@@ -13,7 +13,7 @@ export const city: City = {
 export const offers: Offer[] = [
   {
     'city': {
-      'name': 'Amsterdam',
+      'name': 'Paris',
       'location': {
         'latitude': 50.938361,
         'longitude': 6.959974,
@@ -56,8 +56,8 @@ export const offers: Offer[] = [
     },
     'description': 'This is a place for dreamers to reset, reflect, and create. Designed with a "slow" pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
     'location': {
-      'latitude': 50.913361,
-      'longitude': 6.9509739999999995,
+      'latitude': 50.938361,
+      'longitude': 6.959974,
       'zoom': 16
     },
     'id': 1

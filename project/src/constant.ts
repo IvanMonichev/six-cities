@@ -2,6 +2,8 @@ import pin from './assets/images/pin.svg';
 import pinActive from './assets/images/pin-active.svg';
 import { CityName } from './types/city';
 import { Location } from './types/location';
+import { SortName } from './types/common';
+import { Offer } from './types/offer';
 
 export const cities = [
   'Paris',
@@ -75,3 +77,19 @@ export const STARS_COUNT = 5;
 
 export const DEFAULT_MARKER = pin;
 export const CURRENT_MARKER = pinActive;
+
+export enum Sorting {
+  Popular = 'Popular',
+  PriceIncrease = 'Price: low to high',
+  PriceDecrease = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
+export const Comprator: {
+  [key in SortName]: (a: Offer, b: Offer) => number
+} = {
+  Popular: () => 0,
+  PriceIncrease: (a, b) => a.price - b.price,
+  PriceDecrease: (a, b) => b.price - a.price,
+  TopRated: (a, b) => b.rating - a.rating
+};

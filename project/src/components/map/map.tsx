@@ -1,15 +1,14 @@
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap';
-import { Offer } from '../../types/offer';
 import { Icon, Marker } from 'leaflet';
 import { City } from '../../types/city';
+import { Location } from '../../types/location';
 import { CURRENT_MARKER, DEFAULT_MARKER } from '../../constant';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  offers: Offer[];
+  locations: Location[];
   city: City;
-  selectedPoint?: number | null;
   place: 'cities' | 'property';
 }
 
@@ -19,13 +18,14 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const currentCustomIcon = new Icon({
   iconUrl: CURRENT_MARKER,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
-function Map({ offers, city, selectedPoint, place }: MapProps): JSX.Element {
+function Map({ locations, city, place }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -33,19 +33,19 @@ function Map({ offers, city, selectedPoint, place }: MapProps): JSX.Element {
     const markers: Marker[] = [];
 
     if (map) {
-      offers.forEach((offer) => {
-        const { location } = offer;
+      locations.forEach((location) => {
         const marker = new Marker({
           lat: location.latitude,
           lng: location.longitude,
         });
 
-        marker.setIcon(
-          selectedPoint === offer.id
-            ? currentCustomIcon
-            : defaultCustomIcon
-        ).addTo(map);
+        marker.setIcon(defaultCustomIcon).addTo(map);
+
         markers.push(marker);
+      });
+
+      map.fitBounds([[city.location.latitude, city.location.longitude]], {
+        maxZoom: city.location.zoom
       });
     }
 
@@ -57,7 +57,7 @@ function Map({ offers, city, selectedPoint, place }: MapProps): JSX.Element {
       }
     };
 
-  }, [map, offers, selectedPoint]);
+  }, [map, locations, city]);
 
   return (
     <section
