@@ -6,7 +6,7 @@ import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import { Comment } from '../../types/comment';
 import { City } from '../../types/city';
-import CardList from '../../components/card-list/card-list';
+import Card from '../../components/card/card';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -16,9 +16,9 @@ type OfferPageProps = {
 
 function Property({ offers, city, reviews }: OfferPageProps): JSX.Element {
   const { offerId } = useParams();
-  const offer = offers.find((element) => element.id === Number(offerId));
+  const offer = offers.find((element) => element.id === Number(offerId)) as Offer;
 
-  const { price, rating, title, isPremium, type, images } = offer as Offer;
+  const { price, rating, title, isPremium, type, images } = offer;
 
   return (
     <>
@@ -139,16 +139,14 @@ function Property({ offers, city, reviews }: OfferPageProps): JSX.Element {
             <ReviewList reviews={reviews} />
           </div>
         </div>
-        <Map
-          locations={offers.slice(0, 3).map((offer) => offer.location)}
-          city={city}
-          place='property'
-        />
+        <Map city={city} locations={offers.map((offer) => offer.location)} place="property" />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <CardList />
+          <div className="near-places__list places__list">
+            {offers.map((offer) => <Card key={offer.id} {...offer} partClass="near-places" />)}
+          </div>
         </section>
       </div>
     </>

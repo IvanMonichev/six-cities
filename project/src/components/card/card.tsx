@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { toUpperCaseFirstChar } from '../../util';
 
 type CardProps = Offer & {
-    onMouseMove: (id: number) => void;
-    onMouseLeave: () => void;
+    onMouseMove?: (id: number) => void;
+    onMouseLeave?: () => void;
     partClass: 'cities' | 'near-places';
 };
 
@@ -15,7 +15,9 @@ function Card(props: CardProps): JSX.Element {
   const { partClass } = props;
 
   const handleMouseMove = (): void => {
-    onMouseMove(id);
+    if (onMouseMove) {
+      onMouseMove(id);
+    }
   };
 
   return (
