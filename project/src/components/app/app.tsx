@@ -1,6 +1,6 @@
 import Main from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../constant';
+import { AppRoute } from '../../constant';
 import Layout from '../layout/layout';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -41,7 +41,7 @@ function App({ city, reviews }: AppProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PrivateRoute>
                 <Favorites />
               </PrivateRoute>
             }

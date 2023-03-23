@@ -1,9 +1,12 @@
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { AppRoute, MainModifier, PageModifier } from '../../constant';
+import { AppRoute, AuthorizationStatus, MainModifier, PageModifier } from '../../constant';
+import { useAppSelector } from '../../hooks';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
   const { offerId } = useParams();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   let pageModifier = '';
   let mainModifier: string;
@@ -54,17 +57,19 @@ function Layout(): JSX.Element {
               isDisplayNav &&
               <nav className="header__nav">
                 <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
+                  {isAuthorized && (
+                    <li className="header__nav-item user">
+                      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        </div>
+                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      </Link>
+                    </li>
+                  )}
                   <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
+                    <Link className="header__nav-link" to={AppRoute.Login}>
+                      <span className="header__signout">{isAuthorized ? 'Sign out' : 'Sign in'}</span>
+                    </Link>
                   </li>
                 </ul>
               </nav>

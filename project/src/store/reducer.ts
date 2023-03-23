@@ -1,15 +1,18 @@
 import { City } from '../types/city';
 import { Offer } from '../types/offer';
-import { cities, CityLocation, Sorting } from '../constant';
+import { AuthorizationStatus, cities, CityLocation, Sorting } from '../constant';
 import { createReducer } from '@reduxjs/toolkit';
-import { fetchOffers, setCity, setSorting } from './action';
+import { fetchOffers, fetchUserStatus, loginUser, setCity, setSorting } from './action';
 import { SortName } from '../types/common';
+import { User } from '../types/user';
 
 type State = {
   city: City;
   offers: Offer[];
   isOffersLoading: boolean;
   sorting: SortName;
+  authorizationStatus: AuthorizationStatus;
+  user: User['email'];
 };
 
 const initialState: State = {
@@ -20,6 +23,8 @@ const initialState: State = {
   offers: [],
   isOffersLoading: false,
   sorting: Sorting.Popular,
+  authorizationStatus: AuthorizationStatus.NoAuth,
+  user: ''
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -39,5 +44,16 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSorting, (state, action) => {
       state.sorting = action.payload;
+    })
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload.email;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(fetchUserStatus.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
     });
 });

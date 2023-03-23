@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './reducer';
 import { createApi } from '../services/api';
-import { fetchOffers } from './action';
+import { fetchOffers, fetchUserStatus } from './action';
 
 const api = createApi();
 
@@ -14,6 +14,7 @@ const store = configureStore({
   }),
 });
 
+store.dispatch(fetchUserStatus());
 store.dispatch(fetchOffers());
 
 export default store;
