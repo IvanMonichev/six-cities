@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setSorting } from '../../store/action';
 import { SortName } from '../../types/common';
 import { Comprator } from '../../constant';
+import Spinner from '../spinner/spinner';
 
 function CardList(): JSX.Element {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function CardList(): JSX.Element {
 
   // Сортируем список предложений по состоянию сортировки
   const sortedOffers = useAppSelector((state) => offers.sort(Comprator[state.sorting]));
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   const [activeOffer, setActiveOffer] = useState<number | null>(null);
   const handleCardMouseMove = (id: number): void => {
     setActiveOffer(id);
@@ -30,6 +32,10 @@ function CardList(): JSX.Element {
   const onSortingChange = (name: SortName): void => {
     dispatch(setSorting(name));
   };
+
+  if (isOffersLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

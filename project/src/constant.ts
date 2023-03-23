@@ -51,7 +51,12 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   Offer = '/offer'
+}
+
+export enum ApiRoute {
+  Offers = '/hotels',
 }
 
 export enum PageModifier {

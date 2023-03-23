@@ -8,17 +8,15 @@ import Property from '../../pages/property/property';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../../pages/not-found/not-found';
 import Head from '../head/head';
-import { Offer } from '../../types/offer';
 import { City } from '../../types/city';
 import { Comment } from '../../types/comment';
 
 type AppProps = {
-  offers: Offer[];
   city: City;
   reviews: Comment[];
 };
 
-function App({ offers, city, reviews }: AppProps): JSX.Element {
+function App({ city, reviews }: AppProps): JSX.Element {
 
   return(
     <BrowserRouter>
@@ -52,7 +50,6 @@ function App({ offers, city, reviews }: AppProps): JSX.Element {
             path={`${AppRoute.Offer}/:offerId`}
             element={
               <Property
-                offers={offers}
                 city={city}
                 reviews={reviews}
               />

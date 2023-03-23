@@ -7,15 +7,16 @@ import Map from '../../components/map/map';
 import { Comment } from '../../types/comment';
 import { City } from '../../types/city';
 import Card from '../../components/card/card';
+import { useAppSelector } from '../../hooks';
 
 type OfferPageProps = {
-  offers: Offer[];
   city: City;
   reviews: Comment[];
 }
 
-function Property({ offers, city, reviews }: OfferPageProps): JSX.Element {
+function Property( { city, reviews }: OfferPageProps): JSX.Element {
   const { offerId } = useParams();
+  const offers = useAppSelector((state) => state.offers);
   const offer = offers.find((element) => element.id === Number(offerId)) as Offer;
 
   const { price, rating, title, isPremium, type, images } = offer;
