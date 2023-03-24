@@ -52,7 +52,8 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  Offer = '/offer'
+  Offer = '/offer',
+  NotFound = '/404'
 }
 
 export enum ApiRoute {
@@ -99,3 +100,7 @@ export const Comprator: {
   PriceDecrease: (a, b) => b.price - a.price,
   TopRated: (a, b) => b.rating - a.rating
 };
+
+export enum HttpCode {
+  NotFound = 404
+}

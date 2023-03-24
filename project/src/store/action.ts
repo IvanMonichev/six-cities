@@ -1,15 +1,16 @@
+import type { History } from 'history';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { CityName } from '../types/city';
 import { Offer } from '../types/offer';
 import { SortName } from '../types/common';
-import { AxiosInstance } from 'axios';
-import { ApiRoute } from '../constant';
+import { AxiosError, AxiosInstance } from 'axios';
+import { ApiRoute, AppRoute, HttpCode } from '../constant';
 import { User, UserAuth } from '../types/user';
 import ApiToken from '../services/api-token';
 
 type Extra = {
   api: AxiosInstance,
-  history: History,
+  history: History
 }
 
 export const Action = {
@@ -22,10 +23,13 @@ export const Action = {
 };
 
 export const setCity = createAction<CityName>(Action.SET_CITY);
+
 export const setSorting = createAction<SortName>(Action.SET_SORTING);
+
 export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }>(
   Action.FETCH_OFFERS,
-  async (_, { extra: api }) => {
+  async (_, { extra }) => {
+    const { api } = extra;
     const { data } = await api.get<Offer[]>(ApiRoute.Offers);
 
     return data;
@@ -33,7 +37,8 @@ export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }
 
 export const fetchUserStatus = createAsyncThunk<User, undefined, { extra: Extra }>(
   Action.FETCH_USER_STATUS,
-  async (_, { extra: api }) => {
+  async (_, { extra }) => {
+    const { api } = extra;
     const { data } = await api.get<User>(ApiRoute.Login);
 
     return data;
@@ -42,14 +47,35 @@ export const fetchUserStatus = createAsyncThunk<User, undefined, { extra: Extra 
 
 export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: Extra }>(
   Action.LOGIN_USER,
-  async ({ email, password }, { extra: api }) => {
+  async ({ email, password }, { extra }) => {
+    const { api, history } = extra;
     const { data } = await api.post<User>(ApiRoute.Login, { email, password });
     const { token } = data;
 
     ApiToken.save(token);
-    window.history.back();
+    history.back();
+
     return email;
   }
 );
 
+export const fetchOffer = createAsyncThunk<Offer, Offer['id'], { extra: Extra }>(
+  Action.FETCH_OFFER,
+  async (id, { extra }) => {
+    const { api, history } = extra;
 
+    try {
+      const { data } = await api.get<Offer>(`${ApiRoute.Offers}/${id}`);
+
+      return data;
+    } catch (err) {
+      const axiosError = err as AxiosError;
+
+      if (axiosError.response?.status === HttpCode.NotFound) {
+        history.push(AppRoute.NotFound);
+      }
+
+      return Promise.reject(err);
+    }
+  }
+);
