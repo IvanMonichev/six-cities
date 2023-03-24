@@ -7,6 +7,7 @@ function Layout(): JSX.Element {
   const { offerId } = useParams();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const user = useAppSelector((state) => state.user);
 
   let pageModifier = '';
   let mainModifier: string;
@@ -62,7 +63,7 @@ function Layout(): JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{user}</span>
                       </Link>
                     </li>
                   )}

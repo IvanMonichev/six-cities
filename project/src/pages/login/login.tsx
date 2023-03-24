@@ -1,6 +1,23 @@
 import { Helmet } from 'react-helmet-async';
+import { FormEvent } from 'react';
+import { UserAuth } from '../../types/user';
+import { loginUser } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
 
 function Login(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+
+    const formData = new FormData(form) as Iterable<[UserAuth]>;
+    const data = Object.fromEntries(formData) as UserAuth;
+
+    dispatch(loginUser(data));
+  };
+
+
   return (
     <>
       <Helmet>
@@ -9,7 +26,7 @@ function Login(): JSX.Element {
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form className="login__form form" action="#" method="post">
+          <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
