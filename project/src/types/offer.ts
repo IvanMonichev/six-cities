@@ -1,28 +1,22 @@
 import { City } from './city';
 import { Location } from './location';
-
-type Host = {
-  id: number;
-  name: string;
-  isPro: boolean;
-  avatarUrl: string;
-}
+import { User } from './user';
 
 export type Offer = {
-  city: City;
-  previewImage: string;
-  images: string[];
-  title: string;
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-  type: string;
-  bedrooms: number;
-  maxAdults: number;
-  price: number;
-  goods: string[];
-  host: Host;
-  description: string;
-  location: Location;
   id: number;
+  price: number;
+  rating: number;
+  title: string;
+  isPremium: boolean;
+  isFavorite: boolean;
+  city: City;
+  location: Location;
+  previewImage: string;
+  type: 'apartment' | 'room' | 'house' | 'hotel';
+  bedrooms: number;
+  description: string;
+  goods: string[];
+  host: User;
+  images: [string];
+  maxAdults: number;
 }

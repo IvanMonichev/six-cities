@@ -7,8 +7,8 @@ import { CityLocation, CURRENT_MARKER, DEFAULT_MARKER } from '../../constant';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  locations: (Location & { id?: number })[];
   city: City;
+  locations: (Location & { id?: number })[];
   place: 'cities' | 'property';
   activeOffer?: number | null;
 }

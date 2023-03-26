@@ -1,3 +1,4 @@
+import { Offer } from './offer';
 
 type User = {
   id: number;
@@ -13,3 +14,5 @@ export type Comment = {
   comment: string;
   date: string;
 };
+
+export type CommentAuth = Pick<Comment, 'comment' | 'rating'> & Pick<Offer, 'id'>;

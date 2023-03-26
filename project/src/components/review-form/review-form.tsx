@@ -1,9 +1,14 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { STARS_COUNT } from '../../constant';
+import type { CommentAuth } from '../../types/comment';
 
-function ReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  onSubmit: (formData: Omit<CommentAuth, 'id'>) => void;
+}
+
+function ReviewForm({ onSubmit }: ReviewFormProps): JSX.Element {
   const [text, setText] = useState<string>('');
-  const [rating, setRating] = useState<number | null>(null);
+  const [rating, setRating] = useState<number>(0);
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     setRating(Number(evt.target.value));
@@ -13,9 +18,17 @@ function ReviewForm(): JSX.Element {
     setText(evt.target.value);
   };
 
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    onSubmit({
+      comment: text,
+      rating
+    });
+  };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {Array.from({length: STARS_COUNT}, (_, i) => (
@@ -51,7 +64,7 @@ function ReviewForm(): JSX.Element {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
     </form>
   );

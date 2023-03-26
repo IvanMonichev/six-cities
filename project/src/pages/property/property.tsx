@@ -1,25 +1,50 @@
 import { Helmet } from 'react-helmet-async';
-import { Offer } from '../../types/offer';
-import { useParams } from 'react-router-dom';
 import { getStartsWidth, toUpperCaseFirstChar } from '../../util';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
-import { Comment } from '../../types/comment';
-import { City } from '../../types/city';
 import Card from '../../components/card/card';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchComments, fetchNearbyOffers, fetchOffer, postComment } from '../../store/action';
+import { CommentAuth } from '../../types/comment';
 
-type OfferPageProps = {
-  city: City;
-  reviews: Comment[];
-}
+function Property(): JSX.Element | null {
+  const params = useParams();
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOfferLoading = useAppSelector((state) => state.isOffersLoading);
+  const offer = useAppSelector((state) => state.offer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
 
-function Property( { city, reviews }: OfferPageProps): JSX.Element {
-  const { offerId } = useParams();
-  const offers = useAppSelector((state) => state.offers);
-  const offer = offers.find((element) => element.id === Number(offerId)) as Offer;
+  useEffect(() => {
+    const { offerId } = params;
 
-  const { price, rating, title, isPremium, type, images } = offer;
+    if (offerId) {
+      const parsedId = Number(offerId);
+      dispatch(fetchOffer(parsedId));
+      dispatch(fetchNearbyOffers(parsedId));
+      dispatch(fetchComments(parsedId));
+    }
+  }, [params, dispatch]);
+
+  if (!offer) {
+    return null;
+  }
+
+  if (isOfferLoading) {
+    return <Spinner />;
+  }
+
+  const { id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description, city, location } = offer;
+  const locations = nearbyOffers.map(({ id: nearbyId, location: nearbyLocation }) => ({ id: nearbyId, ...nearbyLocation }));
+  locations.push({ id, ...location });
+
+  const onFormSubmit = (formData: Omit<CommentAuth, 'id'>) => {
+    dispatch(postComment({ id, ...formData }));
+  };
 
   return (
     <>
@@ -29,7 +54,7 @@ function Property( { city, reviews }: OfferPageProps): JSX.Element {
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {images.slice(0, 6).map((image): JSX.Element => (
+            {images.map((image): JSX.Element => (
               <div key={image} className="property__image-wrapper">
                 <img className="property__image" src={image} alt="Photo studio" />
               </div>
@@ -66,10 +91,10 @@ function Property( { city, reviews }: OfferPageProps): JSX.Element {
                 {toUpperCaseFirstChar(type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                3 Bedrooms
+                {bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                Max 4 adults
+                Max {maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
@@ -78,75 +103,45 @@ function Property( { city, reviews }: OfferPageProps): JSX.Element {
             </div>
             <div className="property__inside">
               <h2 className="property__inside-title">What&apos;s inside</h2>
-              <ul className="property__inside-list">
-                <li className="property__inside-item">
-                  Wi-Fi
-                </li>
-                <li className="property__inside-item">
-                  Washing machine
-                </li>
-                <li className="property__inside-item">
-                  Towels
-                </li>
-                <li className="property__inside-item">
-                  Heating
-                </li>
-                <li className="property__inside-item">
-                  Coffee machine
-                </li>
-                <li className="property__inside-item">
-                  Baby seat
-                </li>
-                <li className="property__inside-item">
-                  Kitchen
-                </li>
-                <li className="property__inside-item">
-                  Dishwasher
-                </li>
-                <li className="property__inside-item">
-                  Cabel TV
-                </li>
-                <li className="property__inside-item">
-                  Fridge
-                </li>
-              </ul>
+              {goods.length > 0 && (
+                <ul className="property__inside-list">
+                  {goods.map((good) => (
+                    <li key={good} className="property__inside-item">
+                      {good}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div className="property__host">
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
-                <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74"
-                    height="74" alt="Host avatar"
+                <div className={`property__avatar-wrapper ${host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                  <img className="property__avatar user__avatar" src={host.avatarUrl} width="74"
+                    height="74" alt={host.name}
                   />
                 </div>
                 <span className="property__user-name">
-                Angelina
+                  {host.name}
                 </span>
-                <span className="property__user-status">
-                Pro
-                </span>
+                {host.isPro && <span className="property__user-status">Pro</span>}
               </div>
               <div className="property__description">
                 <p className="property__text">
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-                  building is green and from 18th century.
-                </p>
-                <p className="property__text">
-                  An independent House, strategically located between Rembrand Square and National Opera, but where
-                  the bustle of the city comes to rest in this alley flowery and colorful.
+                  {description}
                 </p>
               </div>
             </div>
-            <ReviewList reviews={reviews} />
+            <ReviewList reviews={comments} authorizationStatus={authorizationStatus} onSubmit={onFormSubmit} />
           </div>
         </div>
-        <Map city={city} locations={offers.map((offer) => offer.location)} place="property" />
+        <Map city={city} locations={locations} activeOffer={id} place="property" />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
-            {offers.map((offer) => <Card key={offer.id} {...offer} partClass="near-places" />)}
+            {nearbyOffers.map((nearbyOffer) => <Card key={nearbyOffer.id} {...nearbyOffer} partClass="near-places" />)}
           </div>
         </section>
       </div>

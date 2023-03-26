@@ -1,25 +1,29 @@
 import type { History } from 'history';
+import type { AxiosInstance, AxiosError } from 'axios';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { CityName } from '../types/city';
 import { Offer } from '../types/offer';
 import { SortName } from '../types/common';
-import { AxiosError, AxiosInstance } from 'axios';
 import { ApiRoute, AppRoute, HttpCode } from '../constant';
 import { User, UserAuth } from '../types/user';
 import ApiToken from '../services/api-token';
+import { Comment, CommentAuth } from '../types/comment';
 
 type Extra = {
-  api: AxiosInstance,
-  history: History
+  api: AxiosInstance;
+  history: History;
 }
 
 export const Action = {
   SET_CITY: 'city/set',
   FETCH_OFFERS: 'offers/fetch',
-  SET_SORTING: 'sorting/set',
   FETCH_USER_STATUS: 'user/fetch-status',
+  FETCH_OFFER: 'offer/fetch',
+  FETCH_NEARBY_OFFERS: 'offers/fetch-nearby',
+  FETCH_COMMENTS: 'offer/fetch-comments',
+  SET_SORTING: 'sorting/set',
   LOGIN_USER: 'user/login',
-  FETCH_OFFER: 'offer/fetch'
+  POST_COMMENT: 'offer/post-comment'
 };
 
 export const setCity = createAction<CityName>(Action.SET_CITY);
@@ -77,5 +81,35 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], { extra: Extra }>
 
       return Promise.reject(err);
     }
+  }
+);
+
+export const fetchNearbyOffers = createAsyncThunk<Offer[], Offer['id'], { extra: Extra }>(
+  Action.FETCH_NEARBY_OFFERS,
+  async (id, { extra }) => {
+    const { api } = extra;
+    const { data } = await api.get<Offer[]>(`${ApiRoute.Offers}/${id}/nearby`);
+
+    return data;
+  }
+);
+
+export const fetchComments = createAsyncThunk<Comment[], Offer['id'], { extra: Extra }>(
+  Action.FETCH_COMMENTS,
+  async (id, { extra }) => {
+    const { api } = extra;
+    const { data } = await api.get<Comment[]>(`${ApiRoute.Comments}/${id}`);
+
+    return data;
+  }
+);
+
+export const postComment = createAsyncThunk<Comment[], CommentAuth, { extra: Extra }>(
+  Action.POST_COMMENT,
+  async ({ id, comment, rating }, { extra }) => {
+    const { api } = extra;
+    const { data } = await api.post<Comment[]>(`${ApiRoute.Comments}/${id}`, { comment, rating });
+
+    return data;
   }
 );

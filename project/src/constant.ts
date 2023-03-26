@@ -58,7 +58,8 @@ export enum AppRoute {
 
 export enum ApiRoute {
   Offers = '/hotels',
-  Login = '/login'
+  Login = '/login',
+  Comments = '/comments'
 }
 
 export enum PageModifier {
