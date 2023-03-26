@@ -1,13 +1,14 @@
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, MainModifier, PageModifier } from '../../constant';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
   const { offerId } = useParams();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector(getUser);
 
   let pageModifier = '';
   let mainModifier: string;

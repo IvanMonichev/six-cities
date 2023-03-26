@@ -1,4 +1,5 @@
 import { CityName } from '../../types/city';
+import { memo } from 'react';
 
 type CityProps = {
   name: CityName;
@@ -20,4 +21,4 @@ function City({ name, isActive, onClick }: CityProps): JSX.Element {
   );
 }
 
-export default City;
+export default memo(City);

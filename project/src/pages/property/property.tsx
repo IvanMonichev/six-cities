@@ -9,15 +9,17 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchComments, fetchNearbyOffers, fetchOffer, postComment } from '../../store/action';
 import { CommentAuth } from '../../types/comment';
+import { getComments, getIsOfferLoading, getNearbyOffers, getOffer } from '../../store/site-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function Property(): JSX.Element | null {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOffersLoading);
-  const offer = useAppSelector((state) => state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const comments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const comments = useAppSelector(getComments);
 
   useEffect(() => {
     const { offerId } = params;

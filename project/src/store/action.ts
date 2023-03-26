@@ -26,9 +26,7 @@ export const Action = {
   POST_COMMENT: 'offer/post-comment'
 };
 
-export const setCity = createAction<CityName>(Action.SET_CITY);
 
-export const setSorting = createAction<SortName>(Action.SET_SORTING);
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }>(
   Action.FETCH_OFFERS,
