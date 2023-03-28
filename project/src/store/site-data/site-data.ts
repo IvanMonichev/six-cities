@@ -2,17 +2,19 @@ import { SiteData } from '../../types/state';
 import { createSlice } from '@reduxjs/toolkit';
 import { StoreSlice } from '../../constant';
 import {
-  fetchComments,
+  fetchComments, fetchFavoriteOffers,
   fetchNearbyOffers,
   fetchOffer,
   fetchOffers,
-  postComment,
+  postComment, postFavorite,
 } from '../action';
 
 const initialState: SiteData = {
   offers: [],
   isOffersLoading: false,
   isOfferLoading: false,
+  favoriteOffers: [],
+  isFavoriteOffersLoading: false,
   offer: null,
   nearbyOffers: [],
   comments: [],
@@ -44,11 +46,35 @@ export const siteData = createSlice({
       .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
       })
+      .addCase(fetchFavoriteOffers.pending, (state) => {
+        state.isFavoriteOffersLoading = true;
+      })
+      .addCase(fetchFavoriteOffers.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
+        state.isFavoriteOffersLoading = false;
+      })
+      .addCase(fetchFavoriteOffers.rejected, (state, action) => {
+        state.isFavoriteOffersLoading = false;
+      })
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
       .addCase(postComment.fulfilled, (state, action) => {
         state.comments = action.payload;
+      })
+      .addCase(postFavorite.fulfilled, (state, action) => {
+        const updateOffer = action.payload;
+        state.offers = state.offers.map((offer) => offer.id === updateOffer.id ? updateOffer : offer);
+
+        if (state.offer && state.offer.id === updateOffer.id) {
+          state.offer = updateOffer;
+        }
+
+        if (updateOffer.isFavorite) {
+          state.favoriteOffers = state.favoriteOffers.concat(updateOffer);
+        } else {
+          state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) => favoriteOffer.id !== updateOffer.id);
+        }
       });
   }
 });

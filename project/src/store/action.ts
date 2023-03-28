@@ -1,13 +1,12 @@
 import type { History } from 'history';
 import type { AxiosInstance, AxiosError } from 'axios';
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { CityName } from '../types/city';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer';
-import { SortName } from '../types/common';
 import { ApiRoute, AppRoute, HttpCode } from '../constant';
 import { User, UserAuth } from '../types/user';
 import ApiToken from '../services/api-token';
 import { Comment, CommentAuth } from '../types/comment';
+import { FavoriteAuth } from '../types/state';
 
 type Extra = {
   api: AxiosInstance;
@@ -17,16 +16,16 @@ type Extra = {
 export const Action = {
   SET_CITY: 'city/set',
   FETCH_OFFERS: 'offers/fetch',
+  FETCH_FAVORITE_OFFERS: 'offers/fetch-favorites',
   FETCH_USER_STATUS: 'user/fetch-status',
   FETCH_OFFER: 'offer/fetch',
   FETCH_NEARBY_OFFERS: 'offers/fetch-nearby',
   FETCH_COMMENTS: 'offer/fetch-comments',
   SET_SORTING: 'sorting/set',
   LOGIN_USER: 'user/login',
-  POST_COMMENT: 'offer/post-comment'
+  POST_COMMENT: 'offer/post-comment',
+  POST_FAVORITE: 'offer/post-favorite',
 };
-
-
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }>(
   Action.FETCH_OFFERS,
@@ -82,6 +81,16 @@ export const fetchOffer = createAsyncThunk<Offer, Offer['id'], { extra: Extra }>
   }
 );
 
+export const fetchFavoriteOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }>(
+  Action.FETCH_FAVORITE_OFFERS,
+  async (_, { extra }) => {
+    const { api } = extra;
+    const { data } = await api.get<Offer[]>(ApiRoute.Favorite);
+
+    return data;
+  }
+);
+
 export const fetchNearbyOffers = createAsyncThunk<Offer[], Offer['id'], { extra: Extra }>(
   Action.FETCH_NEARBY_OFFERS,
   async (id, { extra }) => {
@@ -111,3 +120,23 @@ export const postComment = createAsyncThunk<Comment[], CommentAuth, { extra: Ext
     return data;
   }
 );
+
+export const postFavorite = createAsyncThunk<Offer, FavoriteAuth, { extra: Extra}>(
+  Action.POST_FAVORITE,
+  async ({ id, status }, { extra }) => {
+    const { api, history } = extra;
+
+    try {
+      const { data } = await api.post<Offer>(`${ApiRoute.Favorite}/${id}/${status}`);
+
+      return data;
+    } catch (err) {
+      const axiosError = err as AxiosError;
+
+      if (axiosError.response?.status === HttpCode.NoAuth) {
+        history.push(AppRoute.Login);
+      }
+
+      return Promise.reject(err);
+    }
+  });

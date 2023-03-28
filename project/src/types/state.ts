@@ -8,8 +8,10 @@ import { AuthorizationStatus } from '../constant';
 
 export type SiteData = {
   offers: Offer[];
+  favoriteOffers: Offer[];
   isOffersLoading: boolean;
   isOfferLoading: boolean;
+  isFavoriteOffersLoading: boolean;
   offer: Offer | null;
   nearbyOffers: Offer[];
   comments: Comment[];
@@ -28,3 +30,4 @@ export type UserProcess = {
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type FavoriteAuth = Pick<Offer, 'id'> & { status: 1 | 0 };

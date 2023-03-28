@@ -11,6 +11,7 @@ import { fetchComments, fetchNearbyOffers, fetchOffer, postComment } from '../..
 import { CommentAuth } from '../../types/comment';
 import { getComments, getIsOfferLoading, getNearbyOffers, getOffer } from '../../store/site-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import Bookmark from '../../components/bookmark/bookmark';
 
 function Property(): JSX.Element | null {
   const params = useParams();
@@ -40,7 +41,7 @@ function Property(): JSX.Element | null {
     return <Spinner />;
   }
 
-  const { id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host, description, city, location } = offer;
+  const { id, images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, description, city, location } = offer;
   const locations = nearbyOffers.map(({ id: nearbyId, location: nearbyLocation }) => ({ id: nearbyId, ...nearbyLocation }));
   locations.push({ id, ...location });
 
@@ -74,12 +75,7 @@ function Property(): JSX.Element | null {
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <Bookmark id={id} isActive={isFavorite} />
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
