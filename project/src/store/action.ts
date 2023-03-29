@@ -36,13 +36,13 @@ export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: Extra }
     return data;
   });
 
-export const fetchUserStatus = createAsyncThunk<User, undefined, { extra: Extra }>(
+export const fetchUserStatus = createAsyncThunk<UserAuth['email'], undefined, { extra: Extra }>(
   Action.FETCH_USER_STATUS,
   async (_, { extra }) => {
     const { api } = extra;
     const { data } = await api.get<User>(ApiRoute.Login);
 
-    return data;
+    return data.email;
   }
 );
 
