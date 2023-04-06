@@ -17,6 +17,6 @@ export type Offer = {
   description: string;
   goods: string[];
   host: User;
-  images: [string];
+  images: string[];
   maxAdults: number;
 }
