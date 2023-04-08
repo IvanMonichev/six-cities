@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { getStartsWidth, toUpperCaseFirstChar } from '../../util';
+import { getStartsWidth, pluralize, capitalize } from '../../util';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import Card from '../../components/card/card';
@@ -9,7 +9,13 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchComments, fetchNearbyOffers, fetchOffer, postComment } from '../../store/action';
 import { CommentAuth } from '../../types/comment';
-import { getComments, getIsOfferLoading, getNearbyOffers, getOffer } from '../../store/site-data/selectors';
+import {
+  getComments,
+  getCommentStatus,
+  getIsOfferLoading,
+  getNearbyOffers,
+  getOffer
+} from '../../store/site-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import Bookmark from '../../components/bookmark/bookmark';
 
@@ -21,6 +27,7 @@ function Property(): JSX.Element | null {
   const offer = useAppSelector(getOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const comments = useAppSelector(getComments);
+  const commentStatus = useAppSelector(getCommentStatus);
 
   useEffect(() => {
     const { offerId } = params;
@@ -86,13 +93,13 @@ function Property(): JSX.Element | null {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {toUpperCaseFirstChar(type)}
+                {capitalize(type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {bedrooms} Bedrooms
+                {bedrooms} {pluralize('Bedroom', bedrooms)}
               </li>
               <li className="property__feature property__feature--adults">
-                Max {maxAdults} adults
+                Max {maxAdults} {pluralize('adult', maxAdults)}
               </li>
             </ul>
             <div className="property__price">
@@ -130,7 +137,12 @@ function Property(): JSX.Element | null {
                 </p>
               </div>
             </div>
-            <ReviewList reviews={comments} authorizationStatus={authorizationStatus} onSubmit={onFormSubmit} />
+            <ReviewList
+              reviews={comments}
+              authorizationStatus={authorizationStatus}
+              onSubmit={onFormSubmit}
+              submitStatus={commentStatus}
+            />
           </div>
         </div>
         <Map city={city} locations={locations} activeOffer={id} place="property" />

@@ -1,4 +1,4 @@
-import { Comparator, StoreSlice } from '../../constant';
+import { Comparator, StoreSlice, SubmitStatus } from '../../constant';
 import { State } from '../../types/state';
 import { Offer } from '../../types/offer';
 import { Comment } from '../../types/comment';
@@ -13,6 +13,7 @@ export const getFavoriteOffers = ({ [StoreSlice.SiteData]: SITE_DATA }: State): 
 export const getOffer = ({ [StoreSlice.SiteData]: SITE_DATA }: State): Offer | null => SITE_DATA.offer;
 export const getNearbyOffers = ({ [StoreSlice.SiteData]: SITE_DATA }: State): Offer[] => SITE_DATA.nearbyOffers;
 export const getComments = ({ [StoreSlice.SiteData]: SITE_DATA }: State): Comment[] => SITE_DATA.comments;
+export const getCommentStatus = ({ [StoreSlice.SiteData]: SITE_DATA }: State): SubmitStatus => SITE_DATA.commentStatus;
 export const selectOffers = createSelector(
   [getOffers, getCity, getSorting],
   (offers, city, sorting) => offers.filter((offer) => offer.city.name === city.name).sort(Comparator[sorting])

@@ -23,6 +23,7 @@ export const Action = {
   FETCH_COMMENTS: 'offer/fetch-comments',
   SET_SORTING: 'sorting/set',
   LOGIN_USER: 'user/login',
+  LOGOUT_USER: 'user/logout',
   POST_COMMENT: 'offer/post-comment',
   POST_FAVORITE: 'offer/post-favorite',
 };
@@ -40,9 +41,20 @@ export const fetchUserStatus = createAsyncThunk<UserAuth['email'], undefined, { 
   Action.FETCH_USER_STATUS,
   async (_, { extra }) => {
     const { api } = extra;
-    const { data } = await api.get<User>(ApiRoute.Login);
 
-    return data.email;
+    try {
+      const { data } = await api.get<User>(ApiRoute.Login);
+      return data.email;
+
+    } catch (err) {
+      const axiosError = err as AxiosError;
+
+      if (axiosError.response?.status === HttpCode.NoAuth) {
+        ApiToken.drop();
+      }
+
+      return Promise.reject(err);
+    }
   }
 );
 
@@ -50,13 +62,23 @@ export const loginUser = createAsyncThunk<UserAuth['email'], UserAuth, { extra: 
   Action.LOGIN_USER,
   async ({ email, password }, { extra }) => {
     const { api, history } = extra;
-    const { data } = await api.post<User>(ApiRoute.Login, { email, password });
+    const { data } = await api.post<User & { token: string }>(ApiRoute.Login, { email, password });
     const { token } = data;
 
     ApiToken.save(token);
     history.back();
 
     return email;
+  }
+);
+
+export const logoutUser = createAsyncThunk<void, undefined, { extra: Extra }>(
+  Action.LOGOUT_USER,
+  async (_, { extra }) => {
+    const { api } = extra;
+    await api.delete(ApiRoute.Logout);
+
+    ApiToken.drop();
   }
 );
 

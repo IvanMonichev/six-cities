@@ -60,7 +60,8 @@ export enum ApiRoute {
   Offers = '/hotels',
   Login = '/login',
   Comments = '/comments',
-  Favorite = '/favorite'
+  Favorite = '/favorite',
+  Logout = '/logout'
 }
 
 export enum PageModifier {
@@ -78,7 +79,7 @@ export enum MainModifier {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknow = 'UNKNOWN',
+  Unknown = 'UNKNOWN',
 }
 
 export const MAX_PERCENT_STARS_WIDTH = 100;
@@ -92,6 +93,13 @@ export enum Sorting {
   PriceIncrease = 'Price: low to high',
   PriceDecrease = 'Price: high to low',
   TopRated = 'Top rated first',
+}
+
+export enum SubmitStatus {
+  Still = 'STILL',
+  Pending = 'PENDING',
+  Fullfilled = 'FULLFILLED',
+  Rejected = 'REJECTED'
 }
 
 export const Comparator: {
@@ -108,9 +116,11 @@ export enum HttpCode {
   NoAuth = 401,
 }
 
-
 export enum StoreSlice {
   SiteData = 'SITE_DATA',
   SiteProcess = 'SITE_PROCESS',
   UserProcess = 'USER_PROCESS',
 }
+
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 300;

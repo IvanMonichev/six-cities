@@ -4,6 +4,7 @@ import { getFavoriteOffers, getIsFavoriteOffersLoading } from '../../store/site-
 import { Offer } from '../../types/offer';
 import Spinner from '../../components/spinner/spinner';
 import Card from '../../components/card/card';
+import { Link } from 'react-router-dom';
 
 function Favorites(): JSX.Element {
   const isFavoriteOffersLoading = useAppSelector(getIsFavoriteOffersLoading);
@@ -40,9 +41,9 @@ function Favorites(): JSX.Element {
               <li className="favorites__locations-items" key={city}>
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <Link className="locations__item-link" to="/">
                       <span>{city}</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="favorites__places">

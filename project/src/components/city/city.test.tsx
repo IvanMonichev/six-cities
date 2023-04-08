@@ -15,7 +15,7 @@ describe('Component: City', () => {
       />);
 
     expect(screen.getByText(cities[0])).toBeInTheDocument();
-    expect(screen.getByRole('link')).toHaveClass('tabs__item--active');
+    expect(screen.getByRole('button')).toHaveClass('tabs__item--active');
   });
 
   it('onClick should be called when user has chosen a city', async () => {
@@ -32,4 +32,4 @@ describe('Component: City', () => {
 
     expect(onClick).toBeCalledWith(cities[0]);
   });
-})
+});

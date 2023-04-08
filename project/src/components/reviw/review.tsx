@@ -1,7 +1,6 @@
 import { Comment } from '../../types/comment';
 import { formatDate, getStartsWidth } from '../../util';
 
-
 function review({ user, rating, comment, date }: Comment): JSX.Element {
   const { name, avatarUrl } = user;
   return (

@@ -1,4 +1,4 @@
-import { unstable_HistoryRouter as HistoryRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -23,7 +23,7 @@ describe('Component: PrivateRouter', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <BrowserRouter>
           <Routes>
             <Route
               path={AppRoute.Login}
@@ -32,13 +32,13 @@ describe('Component: PrivateRouter', () => {
             <Route
               path='/private'
               element={
-                <PrivateRoute>
+                <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
                   <h1>Private Route</h1>
                 </PrivateRoute>
               }
             />
           </Routes>
-        </HistoryRouter>
+        </BrowserRouter>
       </Provider>,
     );
 
@@ -55,7 +55,7 @@ describe('Component: PrivateRouter', () => {
 
     render(
       <Provider store={store}>
-        <HistoryRouter history={history}>
+        <BrowserRouter>
           <Routes>
             <Route
               path={AppRoute.Login}
@@ -64,13 +64,13 @@ describe('Component: PrivateRouter', () => {
             <Route
               path='/private'
               element={
-                <PrivateRoute>
+                <PrivateRoute restrictedFor={AuthorizationStatus.NoAuth} redirectTo={AppRoute.Login}>
                   <h1>Private Route</h1>
                 </PrivateRoute>
               }
             />
           </Routes>
-        </HistoryRouter>
+        </BrowserRouter>
       </Provider>,
     );
 

@@ -9,14 +9,14 @@ describe('Reducer: userProcess', () => {
   it('without additional parameters should return initial state', () => {
     expect(userProcess.reducer(void 0, { type: 'UNKNOWN_ACTION'}))
       .toEqual({
-        authorizationStatus: AuthorizationStatus.Unknow,
+        authorizationStatus: AuthorizationStatus.Unknown,
         user: ''
       });
   });
 
   it('should fetch authorization status', () => {
     const state = {
-      authorizationStatus: AuthorizationStatus.Unknow,
+      authorizationStatus: AuthorizationStatus.Unknown,
       user: ''
     };
 

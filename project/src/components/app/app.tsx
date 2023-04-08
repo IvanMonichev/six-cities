@@ -1,6 +1,6 @@
 import Main from '../../pages/main/main';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../constant';
+import { AppRoute, AuthorizationStatus } from '../../constant';
 import Layout from '../layout/layout';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -28,13 +28,15 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Login}
             element={
-              <Login />
+              <PrivateRoute restrictedFor={AuthorizationStatus.Auth} redirectTo={AppRoute.Root}>
+                <Login />
+              </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute>
+              <PrivateRoute restrictedFor={AuthorizationStatus.Auth} redirectTo={AppRoute.Root}>
                 <Favorites />
               </PrivateRoute>
             }

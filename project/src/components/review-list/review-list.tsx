@@ -1,19 +1,20 @@
 import ReviewForm from '../review-form/review-form';
 import Review from '../reviw/review';
 import { Comment, CommentAuth } from '../../types/comment';
-import { AuthorizationStatus } from '../../constant';
+import { AuthorizationStatus, SubmitStatus } from '../../constant';
 
 type ReviewListProps = {
   reviews: Comment[];
   authorizationStatus: AuthorizationStatus;
   onSubmit: (formData: Omit<CommentAuth, 'id'>) => void;
+  submitStatus: SubmitStatus;
 }
 
-function reviewList({ reviews, authorizationStatus, onSubmit }: ReviewListProps): JSX.Element {
+function reviewList({ reviews, authorizationStatus, onSubmit, submitStatus }: ReviewListProps): JSX.Element {
   if (reviews.length === 0) {
     return (
       <section className="property__reviews reviews">
-        {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={onSubmit} />}
+        {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={onSubmit} submitStatus={submitStatus} />}
       </section>
     );
   }
@@ -26,7 +27,7 @@ function reviewList({ reviews, authorizationStatus, onSubmit }: ReviewListProps)
           <Review key={review.id} {...review} />
         ))}
       </ul>
-      <ReviewForm onSubmit={onSubmit} />
+      {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={onSubmit} submitStatus={submitStatus} />}
     </section>
   );
 }

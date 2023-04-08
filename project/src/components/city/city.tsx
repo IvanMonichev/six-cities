@@ -14,9 +14,9 @@ function City({ name, isActive, onClick }: CityProps): JSX.Element {
 
   return (
     <li className="locations__item" onClick={handelCityClick}>
-      <a className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} href="#">
+      <div className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} tabIndex={0}>
         <span>{name}</span>
-      </a>
+      </div>
     </li>
   );
 }

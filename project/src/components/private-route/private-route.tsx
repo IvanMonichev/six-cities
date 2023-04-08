@@ -5,22 +5,22 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import Spinner from '../spinner/spinner';
 
 type PrivateRouteProps = {
+  restrictedFor: AuthorizationStatus;
+  redirectTo: AppRoute;
   children: JSX.Element;
 };
 
-function PrivateRoute({ children }: PrivateRouteProps): JSX.Element {
-
+const PrivateRoute = ({ children, restrictedFor, redirectTo }: PrivateRouteProps): JSX.Element => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (authorizationStatus === AuthorizationStatus.Unknow) {
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <Spinner />;
   }
 
   return (
-    authorizationStatus === AuthorizationStatus.Auth
+    authorizationStatus !== restrictedFor
       ? children
-      : <Navigate to={AppRoute.Login} />
+      : <Navigate to={redirectTo} />
   );
-}
-
+};
 export default PrivateRoute;

@@ -1,9 +1,11 @@
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, MainModifier, PageModifier } from '../../constant';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
+import { logoutUser } from '../../store/action';
 
 function Layout(): JSX.Element {
+  const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { offerId } = useParams();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -45,6 +47,13 @@ function Layout(): JSX.Element {
       isDisplayFooter = true;
   }
 
+  const handleLogoutClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(logoutUser());
+    }
+  };
+
+
   return (
     <div className={`page ${isNotGrayHeader ? '' : 'page--gray'} page--${pageModifier}`}>
       <header className="header">
@@ -69,8 +78,8 @@ function Layout(): JSX.Element {
                     </li>
                   )}
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to={AppRoute.Login}>
-                      <span className="header__signout">{isAuthorized ? 'Sign out' : 'Sign in'}</span>
+                    <Link className="header__nav-link" to={authorizationStatus === AuthorizationStatus.Auth ? AppRoute.Root : AppRoute.Login} onClick={handleLogoutClick}>
+                      <span className="header__signout">{authorizationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sign in'}</span>
                     </Link>
                   </li>
                 </ul>

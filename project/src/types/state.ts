@@ -4,7 +4,7 @@ import { City } from './city';
 import { SortName } from './common';
 import { Comment } from './comment';
 import { User } from './user';
-import { AuthorizationStatus } from '../constant';
+import { AuthorizationStatus, SubmitStatus } from '../constant';
 
 export type SiteData = {
   offers: Offer[];
@@ -15,6 +15,7 @@ export type SiteData = {
   offer: Offer | null;
   nearbyOffers: Offer[];
   comments: Comment[];
+  commentStatus: SubmitStatus;
 };
 
 export type SiteProcess = {
