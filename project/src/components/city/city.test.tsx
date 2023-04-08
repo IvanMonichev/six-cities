@@ -1,5 +1,5 @@
 import City from './city';
-import { cities } from '../../constant';
+import { CITIES } from '../../constant';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -9,12 +9,12 @@ describe('Component: City', () => {
 
     render(
       <City
-        name={cities[0]}
+        name={CITIES[0]}
         isActive
         onClick={onClick}
       />);
 
-    expect(screen.getByText(cities[0])).toBeInTheDocument();
+    expect(screen.getByText(CITIES[0])).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveClass('tabs__item--active');
   });
 
@@ -23,13 +23,13 @@ describe('Component: City', () => {
 
     render(
       <City
-        name={cities[0]}
+        name={CITIES[0]}
         isActive={false}
         onClick={onClick}
       />);
 
     await userEvent.click(screen.getByRole('link'));
 
-    expect(onClick).toBeCalledWith(cities[0]);
+    expect(onClick).toBeCalledWith(CITIES[0]);
   });
 });

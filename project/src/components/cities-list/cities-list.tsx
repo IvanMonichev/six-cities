@@ -1,4 +1,4 @@
-import { cities } from '../../constant';
+import { CITIES } from '../../constant';
 import City from '../city/city';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CityName } from '../../types/city';
@@ -16,7 +16,7 @@ function CitiesList(): JSX.Element {
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city) => (
+      {CITIES.map((city) => (
         <City key={city} name={city} isActive={city === activeCity.name} onClick={handleCityClick} />
       ))}
     </ul>

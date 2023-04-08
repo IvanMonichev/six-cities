@@ -5,14 +5,14 @@ import { Location } from './types/location';
 import { SortName } from './types/common';
 import { Offer } from './types/offer';
 
-export const cities = [
+export const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
   'Amsterdam',
   'Hamburg',
   'Dusseldorf'
-] as const;
+];
 
 export const CityLocation: { [key in CityName]: Location } = {
   'Paris': {
@@ -75,6 +75,8 @@ export enum MainModifier {
   Favorites = 'favorites',
   Property = 'propery',
 }
+
+export const MAX_COMMENTS = 10;
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',

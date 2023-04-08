@@ -1,13 +1,13 @@
 import { SiteProcess } from '../../types/state';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { cities, CityLocation, StoreSlice, Sorting } from '../../constant';
+import { CITIES, CityLocation, StoreSlice, Sorting } from '../../constant';
 import { CityName } from '../../types/city';
 import { SortName } from '../../types/common';
 
 const initialState: SiteProcess = {
   city: {
-    name: cities[0],
-    location: CityLocation[cities[0]]
+    name: CITIES[0],
+    location: CityLocation[CITIES[0]]
   },
   sorting: Sorting.Popular,
 };

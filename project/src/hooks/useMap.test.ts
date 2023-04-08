@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react';
 import { Map } from 'leaflet';
 
-import { cities, CityLocation } from '../constant';
+import { CITIES, CityLocation } from '../constant';
 import useMap from './useMap';
 
 const city = {
-  name: cities[0],
-  location: CityLocation[cities[0]]
+  name: CITIES[0],
+  location: CityLocation[CITIES[0]]
 };
 
 const ref = {

@@ -1,7 +1,7 @@
 import { Location } from './location';
-import { cities } from '../constant';
+import { CITIES } from '../constant';
 
-export type CityName = typeof cities[number];
+export type CityName = typeof CITIES[number];
 
 export type City = {
   name: CityName;

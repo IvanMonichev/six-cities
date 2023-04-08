@@ -1,4 +1,4 @@
-import { Comparator, StoreSlice, SubmitStatus } from '../../constant';
+import { Comparator, MAX_COMMENTS, StoreSlice, SubmitStatus } from '../../constant';
 import { State } from '../../types/state';
 import { Offer } from '../../types/offer';
 import { Comment } from '../../types/comment';
@@ -17,4 +17,9 @@ export const getCommentStatus = ({ [StoreSlice.SiteData]: SITE_DATA }: State): S
 export const selectOffers = createSelector(
   [getOffers, getCity, getSorting],
   (offers, city, sorting) => offers.filter((offer) => offer.city.name === city.name).sort(Comparator[sorting])
+);
+
+export const selectComments = createSelector(
+  [getComments],
+  (comments) => [...comments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, MAX_COMMENTS)
 );

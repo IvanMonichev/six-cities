@@ -1,7 +1,7 @@
 import { Offer } from '../../types/offer';
 import { User } from '../../types/user';
 import { Comment } from '../../types/comment';
-import { cities, CityLocation, SubmitStatus } from '../../constant';
+import { CITIES, CityLocation, SubmitStatus } from '../../constant';
 import { siteData } from './site-data';
 import {
   fetchComments,
@@ -30,10 +30,10 @@ const offers: Offer[] = [
     isPremium: true,
     isFavorite: false,
     city: {
-      name: cities[0],
-      location: CityLocation[cities[0]]
+      name: CITIES[0],
+      location: CityLocation[CITIES[0]]
     },
-    location: CityLocation[cities[0]],
+    location: CityLocation[CITIES[0]],
     previewImage: 'img/1.jpg',
     description: 'Nice house',
     type: 'hotel',
