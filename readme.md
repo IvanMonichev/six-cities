@@ -29,6 +29,3 @@
 - добавление в избранное
 - работа с API
 - работа с картой
-
----
-Ссылка на проект: [https://ivanmonichev.github.io/six-cities/](https://ivanmonichev.github.io/six-cities/)

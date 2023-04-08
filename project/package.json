@@ -3,6 +3,7 @@
   "author": "Ivan Monichev",
   "version": "0.2.0",
   "private": false,
+  "homepage": "https://ivanmonichev.github.io/six-cities/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
@@ -25,7 +26,7 @@
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .tsx --ext .ts src/",
-    "deploy": "npm run build && gh-pages -d build"
+    "deploy": "react-scripts build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
