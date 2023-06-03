@@ -61,7 +61,7 @@ function Layout(): JSX.Element {
           <div className="header__wrapper">
             <div className="header__left">
               <Link className="header__logo-link" to="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
+                <img className="header__logo" src="/six-cities/img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
             {
@@ -94,9 +94,9 @@ function Layout(): JSX.Element {
       {
         isDisplayFooter &&
         <footer className="footer container">
-          <a className="footer__logo-link" href="main.html">
-            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-          </a>
+          <Link className="footer__logo-link" to="/">
+            <img className="footer__logo" src="/six-cities/img/logo.svg" alt="6 cities logo" width="64" height="33" />
+          </Link>
         </footer>
       }
     </div>

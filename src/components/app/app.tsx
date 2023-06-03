@@ -1,5 +1,5 @@
 import Main from '../../pages/main/main';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constant';
 import Layout from '../layout/layout';
 import Login from '../../pages/login/login';
@@ -11,25 +11,25 @@ import Head from '../head/head';
 
 function App(): JSX.Element {
 
-  return(
-    <BrowserRouter>
-      <Head />
+  return (
+    <HashRouter>
+      <Head/>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Layout />}
+          element={<Layout/>}
         >
           <Route
             index
             element={
-              <Main />
+              <Main/>
             }
           />
           <Route
             path={AppRoute.Login}
             element={
               <PrivateRoute restrictedFor={AuthorizationStatus.Auth} redirectTo={AppRoute.Root}>
-                <Login />
+                <Login/>
               </PrivateRoute>
             }
           />
@@ -37,14 +37,14 @@ function App(): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute restrictedFor={AuthorizationStatus.Auth} redirectTo={AppRoute.Root}>
-                <Favorites />
+                <Favorites/>
               </PrivateRoute>
             }
           />
           <Route
             path={`${AppRoute.Offer}/:offerId`}
             element={
-              <Property />
+              <Property/>
             }
           />
           <Route
@@ -55,7 +55,8 @@ function App(): JSX.Element {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
+
 export default App;
