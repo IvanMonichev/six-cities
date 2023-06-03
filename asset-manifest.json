@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.849afed2.css",
-    "main.js": "/static/js/main.d3df6af9.js",
-    "index.html": "/index.html",
-    "static/media/pin-active.svg": "/static/media/pin-active.32d2ab16b4860db6ac8636eae819d9be.svg",
-    "static/media/pin.svg": "/static/media/pin.95de0d91c380512362e23004184b1252.svg",
-    "main.849afed2.css.map": "/static/css/main.849afed2.css.map",
-    "main.d3df6af9.js.map": "/static/js/main.d3df6af9.js.map"
+    "main.css": "/six-cities/static/css/main.849afed2.css",
+    "main.js": "/six-cities/static/js/main.96b418c6.js",
+    "index.html": "/six-cities/index.html",
+    "static/media/pin-active.svg": "/six-cities/static/media/pin-active.32d2ab16b4860db6ac8636eae819d9be.svg",
+    "static/media/pin.svg": "/six-cities/static/media/pin.95de0d91c380512362e23004184b1252.svg",
+    "main.849afed2.css.map": "/six-cities/static/css/main.849afed2.css.map",
+    "main.96b418c6.js.map": "/six-cities/static/js/main.96b418c6.js.map"
   },
   "entrypoints": [
     "static/css/main.849afed2.css",
-    "static/js/main.d3df6af9.js"
+    "static/js/main.96b418c6.js"
   ]
 }
