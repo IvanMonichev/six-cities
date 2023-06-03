@@ -10,7 +10,7 @@ export const CITIES = [
   'Cologne',
   'Brussels',
   'Amsterdam',
-  'Hamburg',]
+  'Hamburg',
   'Dusseldorf'
 ];
 
